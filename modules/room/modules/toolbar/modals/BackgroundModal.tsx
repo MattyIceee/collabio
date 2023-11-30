@@ -14,17 +14,17 @@ const BackgroundModal = () => {
 
   const renderBg = (
     ref: HTMLCanvasElement | null,
-    mode: 'dark' | 'light',
+    mode: 'factory' | 'customs' | 'interchange',
     lines: boolean
   ) => {
     const ctx = ref?.getContext('2d');
     if (ctx) {
-      ctx.fillStyle = mode === 'dark' ? '#222' : '#fff';
-      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      // ctx.fillStyle = mode === 'dark' ? '#222' : '#fff';
+      // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
       if (lines) {
         ctx.lineWidth = 1;
-        ctx.strokeStyle = mode === 'dark' ? '#444' : '#ddd';
+        ctx.strokeStyle = '#444';
         for (let i = 0; i < ctx.canvas.height; i += 10) {
           ctx.beginPath();
           ctx.moveTo(0, i);
@@ -54,32 +54,24 @@ const BackgroundModal = () => {
           tabIndex={0}
           width={256}
           height={192}
-          onClick={() => setBackground('dark', true)}
-          ref={(ref) => renderBg(ref, 'dark', true)}
+          onClick={() => setBackground('customs', true)}
+          ref={(ref) => renderBg(ref, 'customs', true)}
         />
         <canvas
           className="h-48 w-64 cursor-pointer rounded-md border-2"
           tabIndex={0}
           width={256}
           height={192}
-          onClick={() => setBackground('light', true)}
-          ref={(ref) => renderBg(ref, 'light', true)}
+          onClick={() => setBackground('factory', true)}
+          ref={(ref) => renderBg(ref, 'factory', true)}
         />
         <canvas
           className="h-48 w-64 cursor-pointer rounded-md border-2"
           tabIndex={0}
           width={256}
           height={192}
-          onClick={() => setBackground('dark', false)}
-          ref={(ref) => renderBg(ref, 'dark', false)}
-        />
-        <canvas
-          className="h-48 w-64 cursor-pointer rounded-md border-2"
-          tabIndex={0}
-          width={256}
-          height={192}
-          onClick={() => setBackground('light', false)}
-          ref={(ref) => renderBg(ref, 'light', false)}
+          onClick={() => setBackground('interchange', false)}
+          ref={(ref) => renderBg(ref, 'interchange', false)}
         />
       </div>
     </div>

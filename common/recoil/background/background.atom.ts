@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
 
-export const backgroundAtom = atom<{ mode: 'dark' | 'light'; lines: boolean }>({
+export const backgroundAtom = atom<{ mode: 'factory' | 'customs' | 'interchange'; lines: boolean }>({
   key: 'bg',
   default: {
-    mode: 'light',
-    lines: true,
+    mode: 'customs',
+    lines: false,
   },
 });

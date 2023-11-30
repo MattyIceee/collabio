@@ -10,20 +10,39 @@ import { useBoardPosition } from '../hooks/useBoardPosition';
 const Background = ({ bgRef }: { bgRef: RefObject<HTMLCanvasElement> }) => {
   const bg = useBackground();
   const { x, y } = useBoardPosition();
+  const customsMap = '/customs.png';
+  const factoryMap = '/factory.png';
+  const interchangeMap ='/interchange.jpeg';
+
+  let mapImage = ``;
+  if (bg.mode === 'customs') {
+    mapImage = `url(${customsMap})`;
+  } else if (bg.mode === 'factory') {
+    mapImage = `url('${factoryMap}')`;
+  } else {
+    mapImage = `url('${interchangeMap}')`;
+  }
 
   useEffect(() => {
     const ctx = bgRef.current?.getContext('2d');
 
     if (ctx) {
-      ctx.fillStyle = bg.mode === 'dark' ? '#222' : '#fff';
-      ctx.fillRect(0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height);
+      // ctx.fillStyle = '#222';
+      // ctx.fillRect(0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height);
 
-      document.body.style.backgroundColor =
-        bg.mode === 'dark' ? '#222' : '#fff';
+      // document.body.style.backgroundColor = '#222';
+
+      if (bg.mode === 'customs') {
+        mapImage = `url(${customsMap})`;
+      } else if (bg.mode === 'factory') {
+        mapImage = `url('${factoryMap}')`;
+      } else {
+        mapImage = `url('${interchangeMap}')`;
+      }
 
       if (bg.lines) {
         ctx.lineWidth = 1;
-        ctx.strokeStyle = bg.mode === 'dark' ? '#444' : '#ddd';
+        ctx.strokeStyle = '#444';
         for (let i = 0; i < CANVAS_SIZE.height; i += 25) {
           ctx.beginPath();
           ctx.moveTo(0, i);
@@ -47,7 +66,7 @@ const Background = ({ bgRef }: { bgRef: RefObject<HTMLCanvasElement> }) => {
       width={CANVAS_SIZE.width}
       height={CANVAS_SIZE.height}
       className="absolute top-0 bg-zinc-100"
-      style={{ x, y }}
+      style={{ x, y, background: `${mapImage}` }}
     />
   );
 };

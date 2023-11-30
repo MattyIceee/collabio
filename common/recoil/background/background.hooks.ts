@@ -10,12 +10,19 @@ export const useBackground = () => {
   useEffect(() => {
     const root = window.document.documentElement;
 
-    if (bg.mode === 'dark') {
-      root.classList.remove('light');
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
+    if (bg.mode === 'customs') {
+      root.classList.remove('factory');
+      root.classList.remove('interchange');
+      root.classList.add('customs');
+    } else if(bg.mode === 'factory') {
+      root.classList.remove('customs');
+      root.classList.remove('interchange');
+      root.classList.add('factory');
+    }
+    else {
+      root.classList.remove('customs');
+      root.classList.remove('factory');
+      root.classList.add('interchange');
     }
   }, [bg.mode]);
 
@@ -25,7 +32,7 @@ export const useBackground = () => {
 export const useSetBackground = () => {
   const setBg = useSetRecoilState(backgroundAtom);
 
-  const setBackground = (mode: 'dark' | 'light', lines: boolean) => {
+  const setBackground = (mode: 'factory' | 'customs' | 'interchange', lines: boolean) => {
     setBg({
       mode,
       lines,
